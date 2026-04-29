@@ -1,147 +1,234 @@
 "use client";
+import { useState } from "react";
 
 export default function Contact() {
+  const [focused, setFocused] = useState<string | null>(null);
+
   return (
-    <section id="contact" className="py-24 px-6" style={{ background: "linear-gradient(160deg, #FDE8DC 0%, #FDF6EC 100%)" }}>
-      <div className="max-w-5xl mx-auto">
-        <div className="text-center mb-14">
-          <p className="font-script text-5xl mb-2" style={{ color: "#A84E47" }}>Get in Touch</p>
-          <h2 className="font-playfair text-3xl md:text-4xl font-bold" style={{ color: "#3D1F1A" }}>
+    <section id="contact" className="py-28 px-8 md:px-12" style={{ background: "#F7F0E8" }}>
+      <div className="max-w-7xl mx-auto">
+
+        {/* Header */}
+        <div className="mb-16">
+          <p
+            className="text-[11px] tracking-[5px] uppercase mb-4"
+            style={{ color: "#B8946A", fontFamily: "'DM Sans', sans-serif" }}
+          >
+            Get in Touch
+          </p>
+          <h2
+            className="font-light leading-tight"
+            style={{
+              fontFamily: "'Cormorant Garamond', 'Playfair Display', serif",
+              color: "#2C1810",
+              fontSize: "clamp(2.5rem, 5vw, 4rem)",
+            }}
+          >
             Ready to Order?
           </h2>
-          <div className="section-divider" />
-          <p className="font-dm text-base mt-4 max-w-md mx-auto" style={{ color: "#6B3D38", opacity: 0.8 }}>
-            Reach out to place your order, ask questions, or share your cake vision with us.
-          </p>
         </div>
 
-        <div className="grid lg:grid-cols-5 gap-8 items-start">
-          {/* Contact info */}
-          <div className="lg:col-span-2 space-y-5">
-            {[
-              {
-                icon: "📞",
-                label: "Phone",
-                value: "0816 785 3002",
-                link: "tel:+2348167853002",
-              },
-              {
-                icon: "📍",
-                label: "Address",
-                value: "Road 9b, Queens Park Estate, House 2, off Eneka Link Road, Rumunduru, Port Harcourt 500102",
-                link: null,
-              },
-              {
-                icon: "🕐",
-                label: "Hours",
-                value: "Open 24 Hours, 7 days a week",
-                link: null,
-              },
-            ].map((item) => (
-              <div
-                key={item.label}
-                className="rounded-2xl p-5 flex gap-4"
-                style={{ background: "white", border: "1px solid rgba(245, 198, 176, 0.5)" }}
+        <div className="grid lg:grid-cols-5 gap-0">
+
+          {/* Left: Info Panel */}
+          <div
+            className="lg:col-span-2 p-10 md:p-12 flex flex-col justify-between"
+            style={{ background: "#2C1810" }}
+          >
+            <div>
+              <p
+                className="font-light mb-6 leading-snug"
+                style={{
+                  fontFamily: "'Cormorant Garamond', serif",
+                  fontSize: "1.6rem",
+                  color: "#F7F0E8",
+                  lineHeight: 1.3,
+                }}
               >
-                <span className="text-2xl flex-shrink-0 mt-0.5">{item.icon}</span>
-                <div>
-                  <p className="font-dm text-xs font-semibold uppercase tracking-widest mb-1" style={{ color: "#C9A84C" }}>
-                    {item.label}
-                  </p>
-                  {item.link ? (
-                    <a
-                      href={item.link}
-                      className="font-playfair text-base font-semibold hover:underline"
-                      style={{ color: "#A84E47" }}
+                Share your vision.<br />
+                <em style={{ fontStyle: "italic", color: "#D4B896" }}>We&apos;ll bring it to life.</em>
+              </p>
+
+              <p
+                className="text-sm leading-relaxed mb-12"
+                style={{ color: "rgba(247,240,232,0.6)", fontFamily: "'DM Sans', sans-serif", fontWeight: 300 }}
+              >
+                Tell us about your occasion, your flavour preferences, your style — and we&apos;ll 
+                craft something truly special.
+              </p>
+
+              <div className="space-y-8">
+                {[
+                  {
+                    label: "Phone",
+                    value: "0816 785 3002",
+                    href: "tel:+2348167853002",
+                  },
+                  {
+                    label: "Location",
+                    value: "Road 9b, Queens Park Estate, House 2, off Eneka Link Road, Rumunduru, Port Harcourt 500102",
+                    href: null,
+                  },
+                  {
+                    label: "Hours",
+                    value: "Open 24 hours, 7 days a week",
+                    href: null,
+                  },
+                ].map(({ label, value, href }) => (
+                  <div key={label}>
+                    <p
+                      className="text-[9px] tracking-[4px] uppercase mb-1.5"
+                      style={{ color: "#B8946A", fontFamily: "'DM Sans', sans-serif" }}
                     >
-                      {item.value}
-                    </a>
-                  ) : (
-                    <p className="font-dm text-sm leading-relaxed" style={{ color: "#3D1F1A" }}>
-                      {item.value}
+                      {label}
                     </p>
-                  )}
-                </div>
+                    {href ? (
+                      <a
+                        href={href}
+                        className="text-sm hover:text-[#D4B896] transition-colors duration-200"
+                        style={{ color: "#F7F0E8", fontFamily: "'DM Sans', sans-serif", fontWeight: 300 }}
+                      >
+                        {value}
+                      </a>
+                    ) : (
+                      <p
+                        className="text-sm leading-relaxed"
+                        style={{ color: "rgba(247,240,232,0.75)", fontFamily: "'DM Sans', sans-serif", fontWeight: 300 }}
+                      >
+                        {value}
+                      </p>
+                    )}
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
+
+            {/* Bottom: Google rating */}
+            <div className="mt-12 pt-8 border-t border-white/10 flex items-center gap-3">
+              <div className="flex gap-0.5">
+                {[...Array(5)].map((_, i) => (
+                  <span key={i} style={{ color: "#B8946A", fontSize: "0.85rem" }}>★</span>
+                ))}
+              </div>
+              <p
+                className="text-xs"
+                style={{ color: "rgba(247,240,232,0.5)", fontFamily: "'DM Sans', sans-serif" }}
+              >
+                5.0 on Google · 7 reviews
+              </p>
+            </div>
           </div>
 
-          {/* Order form */}
+          {/* Right: Form */}
           <div
-            className="lg:col-span-3 rounded-3xl p-8"
-            style={{ background: "white", border: "1px solid rgba(245, 198, 176, 0.5)", boxShadow: "0 8px 40px rgba(61, 31, 26, 0.08)" }}
+            className="lg:col-span-3 p-10 md:p-12"
+            style={{ background: "#FEFCF8", border: "1px solid #E8DDD0", borderLeft: "none" }}
           >
-            <h3 className="font-playfair text-xl font-semibold mb-6" style={{ color: "#3D1F1A" }}>
+            <h3
+              className="font-light mb-8"
+              style={{
+                fontFamily: "'Cormorant Garamond', serif",
+                fontSize: "1.5rem",
+                color: "#2C1810",
+              }}
+            >
               Send an Enquiry
             </h3>
 
-            <div className="space-y-4">
+            <div className="space-y-6">
               {[
-                { label: "Your Name", type: "text", placeholder: "e.g. Chiamaka Nwosu" },
-                { label: "Phone Number", type: "tel", placeholder: "e.g. 0801 234 5678" },
-                { label: "Occasion", type: "text", placeholder: "e.g. Birthday, Wedding, Just because..." },
+                { id: "name", label: "Your Name", type: "text", placeholder: "Chiamaka Nwosu" },
+                { id: "phone", label: "Phone Number", type: "tel", placeholder: "0801 234 5678" },
+                { id: "occasion", label: "Occasion", type: "text", placeholder: "Birthday, Wedding, Anniversary…" },
               ].map((field) => (
-                <div key={field.label}>
-                  <label className="block font-dm text-xs font-semibold uppercase tracking-wider mb-1.5" style={{ color: "#6B3D38" }}>
+                <div key={field.id}>
+                  <label
+                    htmlFor={field.id}
+                    className="block text-[10px] tracking-[3px] uppercase font-medium mb-2 transition-colors duration-200"
+                    style={{
+                      color: focused === field.id ? "#2C1810" : "#B8A898",
+                      fontFamily: "'DM Sans', sans-serif",
+                    }}
+                  >
                     {field.label}
                   </label>
                   <input
+                    id={field.id}
                     type={field.type}
                     placeholder={field.placeholder}
-                    className="w-full rounded-xl px-4 py-3 font-dm text-sm outline-none transition-all"
+                    onFocus={() => setFocused(field.id)}
+                    onBlur={() => setFocused(null)}
+                    className="w-full px-0 py-3 text-sm outline-none transition-all duration-200 bg-transparent border-b"
                     style={{
-                      background: "#FFFAF5",
-                      border: "1.5px solid rgba(245, 198, 176, 0.8)",
-                      color: "#3D1F1A",
-                    }}
-                    onFocus={(e) => {
-                      e.target.style.borderColor = "#A84E47";
-                      e.target.style.boxShadow = "0 0 0 3px rgba(168, 78, 71, 0.1)";
-                    }}
-                    onBlur={(e) => {
-                      e.target.style.borderColor = "rgba(245, 198, 176, 0.8)";
-                      e.target.style.boxShadow = "none";
+                      color: "#2C1810",
+                      fontFamily: "'DM Sans', sans-serif",
+                      fontWeight: 300,
+                      borderColor: focused === field.id ? "#2C1810" : "#D4B896",
                     }}
                   />
                 </div>
               ))}
 
+              {/* Textarea */}
               <div>
-                <label className="block font-dm text-xs font-semibold uppercase tracking-wider mb-1.5" style={{ color: "#6B3D38" }}>
+                <label
+                  htmlFor="message"
+                  className="block text-[10px] tracking-[3px] uppercase font-medium mb-2 transition-colors duration-200"
+                  style={{
+                    color: focused === "message" ? "#2C1810" : "#B8A898",
+                    fontFamily: "'DM Sans', sans-serif",
+                  }}
+                >
                   Your Message
                 </label>
                 <textarea
+                  id="message"
                   rows={4}
-                  placeholder="Tell us about your dream cake..."
-                  className="w-full rounded-xl px-4 py-3 font-dm text-sm outline-none resize-none transition-all"
+                  placeholder="Tell us about your dream cake — size, flavour, theme, date…"
+                  onFocus={() => setFocused("message")}
+                  onBlur={() => setFocused(null)}
+                  className="w-full px-0 py-3 text-sm outline-none resize-none transition-all duration-200 bg-transparent border-b"
                   style={{
-                    background: "#FFFAF5",
-                    border: "1.5px solid rgba(245, 198, 176, 0.8)",
-                    color: "#3D1F1A",
-                  }}
-                  onFocus={(e) => {
-                    e.target.style.borderColor = "#A84E47";
-                    e.target.style.boxShadow = "0 0 0 3px rgba(168, 78, 71, 0.1)";
-                  }}
-                  onBlur={(e) => {
-                    e.target.style.borderColor = "rgba(245, 198, 176, 0.8)";
-                    e.target.style.boxShadow = "none";
+                    color: "#2C1810",
+                    fontFamily: "'DM Sans', sans-serif",
+                    fontWeight: 300,
+                    borderColor: focused === "message" ? "#2C1810" : "#D4B896",
                   }}
                 />
               </div>
 
-              <button
-                onClick={() => window.location.href = "tel:+2348167853002"}
-                className="btn-primary w-full text-center mt-2"
-              >
-                📱 Call to Discuss Your Order
-              </button>
-              <p className="font-dm text-xs text-center" style={{ color: "#6B3D38", opacity: 0.6 }}>
-                Or call us directly at 0816 785 3002 — we&apos;re available 24/7
-              </p>
+              {/* Submit */}
+              <div className="pt-4 flex flex-col sm:flex-row gap-4 items-start">
+                <a
+                  href="tel:+2348167853002"
+                  className="px-10 py-4 text-[11px] tracking-widest uppercase font-semibold transition-all duration-300 text-center"
+                  style={{
+                    background: "#2C1810",
+                    color: "#FEFCF8",
+                    fontFamily: "'DM Sans', sans-serif",
+                  }}
+                  onMouseEnter={(e) => {
+                    (e.currentTarget as HTMLElement).style.background = "#B8946A";
+                  }}
+                  onMouseLeave={(e) => {
+                    (e.currentTarget as HTMLElement).style.background = "#2C1810";
+                  }}
+                >
+                  Call to Order
+                </a>
+                <p
+                  className="text-[11px] leading-relaxed self-center"
+                  style={{ color: "#B8A898", fontFamily: "'DM Sans', sans-serif" }}
+                >
+                  Or call us directly at<br />
+                  <a href="tel:+2348167853002" className="text-[#B8946A] hover:underline">0816 785 3002</a>
+                  {" "}— available 24/7
+                </p>
+              </div>
             </div>
           </div>
         </div>
+
       </div>
     </section>
   );

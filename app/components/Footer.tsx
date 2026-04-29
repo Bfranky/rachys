@@ -1,42 +1,78 @@
 export default function Footer() {
+  const year = new Date().getFullYear();
+
   return (
-    <footer
-      className="py-12 px-6"
-      style={{ background: "linear-gradient(135deg, #3D1F1A 0%, #2A1210 100%)" }}
-    >
-      <div className="max-w-6xl mx-auto">
-        <div className="grid md:grid-cols-3 gap-10 mb-10">
+    <footer className="px-8 md:px-12 pt-20 pb-10" style={{ background: "#2C1810" }}>
+      <div className="max-w-7xl mx-auto">
+
+        {/* Top: Brand + Nav */}
+        <div className="grid md:grid-cols-4 gap-12 md:gap-8 pb-16 border-b border-white/10">
+
           {/* Brand */}
-          <div>
-            <p className="font-script text-5xl mb-1" style={{ color: "#F5C6B0" }}>Rachy&apos;s</p>
-            <p className="font-dm text-xs tracking-widest uppercase font-semibold mb-4" style={{ color: "#C9A84C" }}>
+          <div className="md:col-span-2">
+            <p
+              className="leading-none mb-1"
+              style={{
+                fontFamily: "'Cormorant Garamond', 'Playfair Display', serif",
+                fontSize: "3.5rem",
+                color: "#F7F0E8",
+                fontWeight: 300,
+              }}
+            >
+              Rachy&apos;s
+            </p>
+            <p
+              className="text-[9px] tracking-[5px] uppercase font-medium mb-6"
+              style={{ color: "#B8946A", fontFamily: "'DM Sans', sans-serif" }}
+            >
               Confectionery
             </p>
-            <p className="font-dm text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.55)" }}>
+            <p
+              className="text-sm leading-relaxed max-w-xs mb-8"
+              style={{ color: "rgba(247,240,232,0.5)", fontFamily: "'DM Sans', sans-serif", fontWeight: 300 }}
+            >
               Port Harcourt&apos;s beloved cake shop — crafting sweet memories, one cake at a time.
             </p>
-            <div className="flex gap-1 mt-4">
-              {[...Array(5)].map((_, i) => (
-                <span key={i} className="text-yellow-400 text-sm">★</span>
-              ))}
-              <span className="font-dm text-xs ml-2 self-center" style={{ color: "rgba(255,255,255,0.4)" }}>
-                5.0 (7 reviews)
+
+            {/* Stars */}
+            <div className="flex items-center gap-3">
+              <div className="flex gap-0.5">
+                {[...Array(5)].map((_, i) => (
+                  <span key={i} style={{ color: "#B8946A", fontSize: "0.85rem" }}>★</span>
+                ))}
+              </div>
+              <span
+                className="text-xs"
+                style={{ color: "rgba(247,240,232,0.35)", fontFamily: "'DM Sans', sans-serif" }}
+              >
+                5.0 · 7 Google Reviews
               </span>
             </div>
           </div>
 
-          {/* Quick links */}
+          {/* Nav */}
           <div>
-            <h4 className="font-playfair text-base font-semibold mb-4 text-white">Quick Links</h4>
-            <ul className="space-y-2">
-              {["Home", "Menu", "Reviews", "About", "Contact"].map((link) => (
-                <li key={link}>
+            <p
+              className="text-[9px] tracking-[4px] uppercase font-medium mb-6"
+              style={{ color: "#B8946A", fontFamily: "'DM Sans', sans-serif" }}
+            >
+              Navigate
+            </p>
+            <ul className="space-y-3">
+              {[
+                { label: "Home", href: "/" },
+                { label: "Menu", href: "/#menu" },
+                { label: "Reviews", href: "/#reviews" },
+                { label: "About", href: "/#about" },
+                { label: "Contact", href: "/#contact" },
+              ].map(({ label, href }) => (
+                <li key={label}>
                   <a
-                    href={link === "Home" ? "/" : `/#${link.toLowerCase()}`}
-                    className="font-dm text-sm transition-colors hover:text-white"
-                    style={{ color: "rgba(255,255,255,0.5)" }}
+                    href={href}
+                    className="text-sm transition-colors duration-200 hover:text-[#D4B896]"
+                    style={{ color: "rgba(247,240,232,0.5)", fontFamily: "'DM Sans', sans-serif", fontWeight: 300 }}
                   >
-                    {link}
+                    {label}
                   </a>
                 </li>
               ))}
@@ -45,37 +81,78 @@ export default function Footer() {
 
           {/* Contact */}
           <div>
-            <h4 className="font-playfair text-base font-semibold mb-4 text-white">Contact Us</h4>
-            <div className="space-y-3">
-              <a
-                href="tel:+2348167853002"
-                className="flex items-center gap-2 font-dm text-sm transition-colors hover:text-white"
-                style={{ color: "rgba(255,255,255,0.6)" }}
-              >
-                <span>📞</span> 0816 785 3002
-              </a>
-              <p className="flex gap-2 font-dm text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>
-                <span>📍</span>
-                <span>Road 9b, Queens Park Estate, House 2, off Eneka Link Road, Port Harcourt</span>
-              </p>
-              <p className="flex items-center gap-2 font-dm text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>
-                <span>🕐</span> Open 24 Hours
-              </p>
+            <p
+              className="text-[9px] tracking-[4px] uppercase font-medium mb-6"
+              style={{ color: "#B8946A", fontFamily: "'DM Sans', sans-serif" }}
+            >
+              Contact
+            </p>
+            <div className="space-y-5">
+              <div>
+                <p
+                  className="text-[9px] tracking-[3px] uppercase mb-1"
+                  style={{ color: "rgba(247,240,232,0.25)", fontFamily: "'DM Sans', sans-serif" }}
+                >
+                  Phone
+                </p>
+                <a
+                  href="tel:+2348167853002"
+                  className="text-sm transition-colors duration-200 hover:text-[#D4B896]"
+                  style={{ color: "rgba(247,240,232,0.6)", fontFamily: "'DM Sans', sans-serif", fontWeight: 300 }}
+                >
+                  0816 785 3002
+                </a>
+              </div>
+              <div>
+                <p
+                  className="text-[9px] tracking-[3px] uppercase mb-1"
+                  style={{ color: "rgba(247,240,232,0.25)", fontFamily: "'DM Sans', sans-serif" }}
+                >
+                  Address
+                </p>
+                <p
+                  className="text-sm leading-relaxed"
+                  style={{ color: "rgba(247,240,232,0.5)", fontFamily: "'DM Sans', sans-serif", fontWeight: 300 }}
+                >
+                  Road 9b, Queens Park Estate,<br />
+                  House 2, off Eneka Link Road,<br />
+                  Port Harcourt, Rivers State
+                </p>
+              </div>
+              <div>
+                <p
+                  className="text-[9px] tracking-[3px] uppercase mb-1"
+                  style={{ color: "rgba(247,240,232,0.25)", fontFamily: "'DM Sans', sans-serif" }}
+                >
+                  Hours
+                </p>
+                <p
+                  className="text-sm"
+                  style={{ color: "rgba(247,240,232,0.5)", fontFamily: "'DM Sans', sans-serif", fontWeight: 300 }}
+                >
+                  Open 24 hours · Every day
+                </p>
+              </div>
             </div>
           </div>
         </div>
 
-        <div
-          className="pt-6 border-t flex flex-col sm:flex-row items-center justify-between gap-3"
-          style={{ borderColor: "rgba(255,255,255,0.1)" }}
-        >
-          <p className="font-dm text-xs" style={{ color: "rgba(255,255,255,0.3)" }}>
-            © {new Date().getFullYear()} Rachy&apos;s Confectionery. All rights reserved.
+        {/* Bottom */}
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-8">
+          <p
+            className="text-xs"
+            style={{ color: "rgba(247,240,232,0.2)", fontFamily: "'DM Sans', sans-serif" }}
+          >
+            © {year} Rachy&apos;s Confectionery. All rights reserved.
           </p>
-          <p className="font-dm text-xs" style={{ color: "rgba(255,255,255,0.25)" }}>
+          <p
+            className="text-xs"
+            style={{ color: "rgba(247,240,232,0.2)", fontFamily: "'DM Sans', sans-serif" }}
+          >
             Port Harcourt, Rivers State, Nigeria 🇳🇬
           </p>
         </div>
+
       </div>
     </footer>
   );

@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500;600&display=swap');
+@import "tailwindcss";
+
+:root {
+  --ivory:      #FEFCF8;
+  --cream:      #F7F0E8;
+  --warm-sand:  #E8DDD0;
+  --gold:       #B8946A;
+  --gold-light: #D4B896;
+  --brown:      #2C1810;
+  --brown-mid:  #5C3D2E;
+  --brown-soft: #7A5C4E;
+  --brown-muted:#9A7A6C;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background-color: var(--ivory);
+  color: var(--brown);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Cormorant for display */
+.font-display {
+  font-family: 'Cormorant Garamond', serif;
+}
+
+/* ── Scroll bar ── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--ivory); }
+::-webkit-scrollbar-thumb { background: var(--gold-light); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: var(--gold); }
+
+/* ── Selection ── */
+::selection {
+  background: var(--gold);
+  color: var(--ivory);
+}
+
+/* ── Smooth image rendering ── */
+img {
+  display: block;
+  max-width: 100%;
+}

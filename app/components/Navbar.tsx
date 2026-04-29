@@ -12,74 +12,116 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handler);
   }, []);
 
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [menuOpen]);
+
+  const links = [
+    { label: "Home",    href: "/" },
+    { label: "Menu",    href: "/#menu" },
+    { label: "Reviews", href: "/#reviews" },
+    { label: "About",   href: "/#about" },
+    { label: "Contact", href: "/#contact" },
+  ];
+
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ${
-          scrolled
-            ? "bg-[#FEFCF8]/98 backdrop-blur-sm border-b border-[#E8DDD0]"
-            : "bg-transparent"
-        }`}
+        style={{
+          position: "fixed",
+          top: 0, left: 0, right: 0,
+          zIndex: 50,
+          transition: "background 0.5s, border-color 0.5s",
+          background: scrolled ? "rgba(254,252,248,0.97)" : "transparent",
+          borderBottom: scrolled ? "1px solid #E8DDD0" : "1px solid transparent",
+          backdropFilter: scrolled ? "blur(8px)" : "none",
+        }}
       >
-        <div className="max-w-7xl mx-auto px-8 md:px-12 h-20 flex items-center justify-between">
-
+        <div
+          style={{
+            maxWidth: "1280px",
+            margin: "0 auto",
+            padding: "0 1.25rem",
+            height: "64px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
           {/* Logo */}
-          <Link href="/" className="group flex flex-col items-start leading-none">
-            <span
-              className="font-script text-[2.2rem] leading-none transition-colors duration-300"
-              style={{
-                fontFamily: "'Cormorant Garamond', 'Playfair Display', serif",
-                color: "#2C1810",
-              }}
-            >
+          <Link href="/" style={{ textDecoration: "none", display: "flex", flexDirection: "column", lineHeight: 1 }}>
+            <span style={{
+              fontFamily: "'Cormorant Garamond', serif",
+              fontSize: "1.9rem",
+              color: "#2C1810",
+              fontWeight: 300,
+              lineHeight: 1,
+            }}>
               Rachy&apos;s
             </span>
-            <span
-              className="text-[8px] tracking-[5px] uppercase font-medium"
-              style={{ color: "#B8946A", fontFamily: "'DM Sans', sans-serif", marginTop: "-2px" }}
-            >
+            <span style={{
+              fontFamily: "'DM Sans', sans-serif",
+              fontSize: "7px",
+              letterSpacing: "4px",
+              textTransform: "uppercase",
+              color: "#B8946A",
+              fontWeight: 500,
+              marginTop: "1px",
+            }}>
               Confectionery
             </span>
           </Link>
 
-          {/* Desktop Nav */}
-          <div className="hidden md:flex items-center gap-10">
-            {[
-              { label: "Home", href: "/" },
-              { label: "Menu", href: "/#menu" },
-              { label: "Reviews", href: "/#reviews" },
-              { label: "About", href: "/#about" },
-              { label: "Contact", href: "/#contact" },
-            ].map(({ label, href }) => (
+          {/* Desktop links */}
+          <div style={{ display: "none" }} className="md-nav">
+            <style>{`
+              @media (min-width: 768px) {
+                .md-nav { display: flex !important; align-items: center; gap: 2.5rem; }
+                .mobile-toggle { display: none !important; }
+              }
+            `}</style>
+            {links.map(({ label, href }) => (
               <Link
                 key={label}
                 href={href}
-                className="relative text-[13px] tracking-widest uppercase font-medium transition-colors duration-300 group"
-                style={{ color: "#5C3D2E", fontFamily: "'DM Sans', sans-serif" }}
+                style={{
+                  fontFamily: "'DM Sans', sans-serif",
+                  fontSize: "11px",
+                  letterSpacing: "3px",
+                  textTransform: "uppercase",
+                  fontWeight: 500,
+                  color: "#5C3D2E",
+                  textDecoration: "none",
+                  transition: "color 0.2s",
+                }}
+                onMouseEnter={e => (e.currentTarget.style.color = "#B8946A")}
+                onMouseLeave={e => (e.currentTarget.style.color = "#5C3D2E")}
               >
                 {label}
-                <span
-                  className="absolute -bottom-0.5 left-0 w-0 h-px bg-[#B8946A] transition-all duration-300 group-hover:w-full"
-                />
               </Link>
             ))}
-          </div>
-
-          {/* CTA */}
-          <div className="hidden md:block">
             <a
               href="tel:+2348167853002"
-              className="inline-flex items-center gap-2 px-6 py-2.5 text-[12px] tracking-widest uppercase font-semibold transition-all duration-300 border"
               style={{
                 fontFamily: "'DM Sans', sans-serif",
+                fontSize: "11px",
+                letterSpacing: "3px",
+                textTransform: "uppercase",
+                fontWeight: 600,
                 color: "#2C1810",
-                borderColor: "#2C1810",
+                border: "1px solid #2C1810",
+                padding: "9px 20px",
+                textDecoration: "none",
+                transition: "all 0.3s",
+                marginLeft: "0.5rem",
               }}
-              onMouseEnter={(e) => {
+              onMouseEnter={e => {
                 (e.currentTarget as HTMLElement).style.background = "#2C1810";
                 (e.currentTarget as HTMLElement).style.color = "#FEFCF8";
               }}
-              onMouseLeave={(e) => {
+              onMouseLeave={e => {
                 (e.currentTarget as HTMLElement).style.background = "transparent";
                 (e.currentTarget as HTMLElement).style.color = "#2C1810";
               }}
@@ -88,69 +130,98 @@ export default function Navbar() {
             </a>
           </div>
 
-          {/* Mobile toggle */}
+          {/* Mobile hamburger */}
           <button
-            className="md:hidden flex flex-col justify-center gap-[5px] w-8 h-8"
+            className="mobile-toggle"
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label="Toggle menu"
+            style={{
+              background: "none",
+              border: "none",
+              cursor: "pointer",
+              padding: "8px",
+              display: "flex",
+              flexDirection: "column",
+              gap: "5px",
+              justifyContent: "center",
+            }}
           >
-            <span
-              className={`block h-px bg-[#2C1810] transition-all duration-400 origin-center ${
-                menuOpen ? "rotate-45 translate-y-[7px] w-full" : "w-full"
-              }`}
-            />
-            <span
-              className={`block h-px bg-[#2C1810] transition-all duration-300 ${
-                menuOpen ? "opacity-0 w-0" : "w-3/4"
-              }`}
-            />
-            <span
-              className={`block h-px bg-[#2C1810] transition-all duration-400 origin-center ${
-                menuOpen ? "-rotate-45 -translate-y-[7px] w-full" : "w-1/2"
-              }`}
-            />
+            <span style={{
+              display: "block", width: "24px", height: "1px", background: "#2C1810",
+              transition: "transform 0.3s, opacity 0.3s",
+              transform: menuOpen ? "rotate(45deg) translate(4px, 4px)" : "none",
+            }} />
+            <span style={{
+              display: "block", width: "18px", height: "1px", background: "#2C1810",
+              transition: "opacity 0.3s",
+              opacity: menuOpen ? 0 : 1,
+            }} />
+            <span style={{
+              display: "block", height: "1px", background: "#2C1810",
+              transition: "transform 0.3s, width 0.3s",
+              width: menuOpen ? "24px" : "12px",
+              transform: menuOpen ? "rotate(-45deg) translate(4px, -4px)" : "none",
+            }} />
           </button>
         </div>
       </nav>
 
-      {/* Mobile Menu Overlay */}
+      {/* Mobile fullscreen overlay */}
       <div
-        className={`fixed inset-0 z-40 transition-all duration-500 ${
-          menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
-        }`}
-        style={{ background: "#FEFCF8" }}
+        style={{
+          position: "fixed",
+          inset: 0,
+          zIndex: 40,
+          background: "#FEFCF8",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: "2rem",
+          transition: "opacity 0.4s, transform 0.4s",
+          opacity: menuOpen ? 1 : 0,
+          transform: menuOpen ? "translateY(0)" : "translateY(-16px)",
+          pointerEvents: menuOpen ? "auto" : "none",
+        }}
       >
-        <div className="flex flex-col justify-center items-center h-full gap-8">
-          {[
-            { label: "Home", href: "/" },
-            { label: "Menu", href: "/#menu" },
-            { label: "Reviews", href: "/#reviews" },
-            { label: "About", href: "/#about" },
-            { label: "Contact", href: "/#contact" },
-          ].map(({ label, href }, i) => (
-            <Link
-              key={label}
-              href={href}
-              onClick={() => setMenuOpen(false)}
-              className="text-4xl font-light transition-colors duration-300 hover:text-[#B8946A]"
-              style={{
-                fontFamily: "'Cormorant Garamond', serif",
-                color: "#2C1810",
-                animationDelay: `${i * 60}ms`,
-              }}
-            >
-              {label}
-            </Link>
-          ))}
-          <a
-            href="tel:+2348167853002"
-            className="mt-4 px-8 py-3 text-sm tracking-widest uppercase border border-[#2C1810] text-[#2C1810]"
-            style={{ fontFamily: "'DM Sans', sans-serif" }}
+        {links.map(({ label, href }, i) => (
+          <Link
+            key={label}
+            href={href}
             onClick={() => setMenuOpen(false)}
+            style={{
+              fontFamily: "'Cormorant Garamond', serif",
+              fontSize: "2.5rem",
+              fontWeight: 300,
+              color: "#2C1810",
+              textDecoration: "none",
+              transition: "color 0.2s",
+              transitionDelay: `${i * 50}ms`,
+            }}
+            onMouseEnter={e => (e.currentTarget.style.color = "#B8946A")}
+            onMouseLeave={e => (e.currentTarget.style.color = "#2C1810")}
           >
-            Order Now
-          </a>
-        </div>
+            {label}
+          </Link>
+        ))}
+        <a
+          href="tel:+2348167853002"
+          onClick={() => setMenuOpen(false)}
+          style={{
+            fontFamily: "'DM Sans', sans-serif",
+            fontSize: "11px",
+            letterSpacing: "3px",
+            textTransform: "uppercase",
+            fontWeight: 600,
+            color: "#2C1810",
+            border: "1px solid #2C1810",
+            padding: "12px 32px",
+            textDecoration: "none",
+            marginTop: "1rem",
+          }}
+        >
+          Order Now
+        </a>
       </div>
     </>
   );

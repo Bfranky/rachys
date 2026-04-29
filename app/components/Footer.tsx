@@ -2,157 +2,118 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="px-8 md:px-12 pt-20 pb-10" style={{ background: "#2C1810" }}>
-      <div className="max-w-7xl mx-auto">
+    <footer style={{ background: "#2C1810", padding: "4rem 0 2rem" }}>
+      <style>{`
+        .footer-inner { max-width: 1280px; margin: 0 auto; padding: 0 1.25rem; }
+        @media (min-width: 768px) { .footer-inner { padding: 0 3rem; } }
 
-        {/* Top: Brand + Nav */}
-        <div className="grid md:grid-cols-4 gap-12 md:gap-8 pb-16 border-b border-white/10">
+        .footer-grid {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 2.5rem;
+          padding-bottom: 3rem;
+          border-bottom: 1px solid rgba(255,255,255,0.08);
+          margin-bottom: 2rem;
+        }
+        @media (min-width: 640px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+        @media (min-width: 1024px) { .footer-grid { grid-template-columns: 2fr 1fr 1fr; } }
 
-          {/* Brand */}
-          <div className="md:col-span-2">
-            <p
-              className="leading-none mb-1"
-              style={{
-                fontFamily: "'Cormorant Garamond', 'Playfair Display', serif",
-                fontSize: "3.5rem",
-                color: "#F7F0E8",
-                fontWeight: 300,
-              }}
-            >
+        .footer-link {
+          font-family: 'DM Sans', sans-serif;
+          font-weight: 300;
+          font-size: 13px;
+          color: rgba(247,240,232,0.5);
+          text-decoration: none;
+          display: block;
+          padding: 4px 0;
+          transition: color 0.2s;
+        }
+        .footer-link:hover { color: #D4B896; }
+
+        .footer-bottom {
+          display: flex;
+          flex-direction: column;
+          gap: 0.5rem;
+          align-items: center;
+          text-align: center;
+        }
+        @media (min-width: 640px) {
+          .footer-bottom { flex-direction: row; justify-content: space-between; text-align: left; }
+        }
+      `}</style>
+
+      <div className="footer-inner">
+        <div className="footer-grid">
+
+          {/* Brand col */}
+          <div>
+            <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "3rem", fontWeight: 300, color: "#F7F0E8", lineHeight: 1, marginBottom: "2px" }}>
               Rachy&apos;s
             </p>
-            <p
-              className="text-[9px] tracking-[5px] uppercase font-medium mb-6"
-              style={{ color: "#B8946A", fontFamily: "'DM Sans', sans-serif" }}
-            >
+            <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "8px", letterSpacing: "5px", textTransform: "uppercase", color: "#B8946A", fontWeight: 500, marginBottom: "1.25rem" }}>
               Confectionery
             </p>
-            <p
-              className="text-sm leading-relaxed max-w-xs mb-8"
-              style={{ color: "rgba(247,240,232,0.5)", fontFamily: "'DM Sans', sans-serif", fontWeight: 300 }}
-            >
+            <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: "13px", lineHeight: 1.7, color: "rgba(247,240,232,0.5)", maxWidth: "280px", marginBottom: "1.25rem" }}>
               Port Harcourt&apos;s beloved cake shop — crafting sweet memories, one cake at a time.
             </p>
-
-            {/* Stars */}
-            <div className="flex items-center gap-3">
-              <div className="flex gap-0.5">
-                {[...Array(5)].map((_, i) => (
-                  <span key={i} style={{ color: "#B8946A", fontSize: "0.85rem" }}>★</span>
-                ))}
+            <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+              <div style={{ display: "flex", gap: "2px" }}>
+                {[...Array(5)].map((_, i) => <span key={i} style={{ color: "#B8946A", fontSize: "12px" }}>★</span>)}
               </div>
-              <span
-                className="text-xs"
-                style={{ color: "rgba(247,240,232,0.35)", fontFamily: "'DM Sans', sans-serif" }}
-              >
-                5.0 · 7 Google Reviews
+              <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "11px", color: "rgba(247,240,232,0.3)" }}>
+                5.0 · 7 reviews
               </span>
             </div>
           </div>
 
-          {/* Nav */}
+          {/* Nav col */}
           <div>
-            <p
-              className="text-[9px] tracking-[4px] uppercase font-medium mb-6"
-              style={{ color: "#B8946A", fontFamily: "'DM Sans', sans-serif" }}
-            >
+            <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "8px", letterSpacing: "4px", textTransform: "uppercase", color: "#B8946A", marginBottom: "1rem" }}>
               Navigate
             </p>
-            <ul className="space-y-3">
-              {[
-                { label: "Home", href: "/" },
-                { label: "Menu", href: "/#menu" },
-                { label: "Reviews", href: "/#reviews" },
-                { label: "About", href: "/#about" },
-                { label: "Contact", href: "/#contact" },
-              ].map(({ label, href }) => (
-                <li key={label}>
-                  <a
-                    href={href}
-                    className="text-sm transition-colors duration-200 hover:text-[#D4B896]"
-                    style={{ color: "rgba(247,240,232,0.5)", fontFamily: "'DM Sans', sans-serif", fontWeight: 300 }}
-                  >
-                    {label}
-                  </a>
-                </li>
-              ))}
-            </ul>
+            {[
+              { label: "Home",    href: "/" },
+              { label: "Menu",    href: "/#menu" },
+              { label: "Reviews", href: "/#reviews" },
+              { label: "About",   href: "/#about" },
+              { label: "Contact", href: "/#contact" },
+            ].map(({ label, href }) => (
+              <a key={label} href={href} className="footer-link">{label}</a>
+            ))}
           </div>
 
-          {/* Contact */}
+          {/* Contact col */}
           <div>
-            <p
-              className="text-[9px] tracking-[4px] uppercase font-medium mb-6"
-              style={{ color: "#B8946A", fontFamily: "'DM Sans', sans-serif" }}
-            >
+            <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "8px", letterSpacing: "4px", textTransform: "uppercase", color: "#B8946A", marginBottom: "1rem" }}>
               Contact
             </p>
-            <div className="space-y-5">
-              <div>
-                <p
-                  className="text-[9px] tracking-[3px] uppercase mb-1"
-                  style={{ color: "rgba(247,240,232,0.25)", fontFamily: "'DM Sans', sans-serif" }}
-                >
-                  Phone
-                </p>
-                <a
-                  href="tel:+2348167853002"
-                  className="text-sm transition-colors duration-200 hover:text-[#D4B896]"
-                  style={{ color: "rgba(247,240,232,0.6)", fontFamily: "'DM Sans', sans-serif", fontWeight: 300 }}
-                >
-                  0816 785 3002
-                </a>
-              </div>
-              <div>
-                <p
-                  className="text-[9px] tracking-[3px] uppercase mb-1"
-                  style={{ color: "rgba(247,240,232,0.25)", fontFamily: "'DM Sans', sans-serif" }}
-                >
-                  Address
-                </p>
-                <p
-                  className="text-sm leading-relaxed"
-                  style={{ color: "rgba(247,240,232,0.5)", fontFamily: "'DM Sans', sans-serif", fontWeight: 300 }}
-                >
-                  Road 9b, Queens Park Estate,<br />
-                  House 2, off Eneka Link Road,<br />
-                  Port Harcourt, Rivers State
-                </p>
-              </div>
-              <div>
-                <p
-                  className="text-[9px] tracking-[3px] uppercase mb-1"
-                  style={{ color: "rgba(247,240,232,0.25)", fontFamily: "'DM Sans', sans-serif" }}
-                >
-                  Hours
-                </p>
-                <p
-                  className="text-sm"
-                  style={{ color: "rgba(247,240,232,0.5)", fontFamily: "'DM Sans', sans-serif", fontWeight: 300 }}
-                >
-                  Open 24 hours · Every day
-                </p>
-              </div>
+            <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
+              {[
+                { sub: "Phone", val: "0816 785 3002", href: "tel:+2348167853002" },
+                { sub: "Address", val: "Road 9b, Queens Park Estate, House 2, off Eneka Link Road, Port Harcourt", href: null },
+                { sub: "Hours", val: "Open 24 hours · Every day", href: null },
+              ].map(({ sub, val, href }) => (
+                <div key={sub}>
+                  <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "8px", letterSpacing: "2px", textTransform: "uppercase", color: "rgba(247,240,232,0.2)", marginBottom: "3px" }}>{sub}</p>
+                  {href ? (
+                    <a href={href} className="footer-link" style={{ padding: 0 }}>{val}</a>
+                  ) : (
+                    <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: "13px", color: "rgba(247,240,232,0.5)", lineHeight: 1.6 }}>{val}</p>
+                  )}
+                </div>
+              ))}
             </div>
           </div>
         </div>
 
-        {/* Bottom */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-8">
-          <p
-            className="text-xs"
-            style={{ color: "rgba(247,240,232,0.2)", fontFamily: "'DM Sans', sans-serif" }}
-          >
+        <div className="footer-bottom">
+          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "11px", color: "rgba(247,240,232,0.2)" }}>
             © {year} Rachy&apos;s Confectionery. All rights reserved.
           </p>
-          <p
-            className="text-xs"
-            style={{ color: "rgba(247,240,232,0.2)", fontFamily: "'DM Sans', sans-serif" }}
-          >
+          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "11px", color: "rgba(247,240,232,0.2)" }}>
             Port Harcourt, Rivers State, Nigeria 🇳🇬
           </p>
         </div>
-
       </div>
     </footer>
   );

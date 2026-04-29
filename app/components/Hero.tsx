@@ -5,125 +5,164 @@ export default function Hero() {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const els = ref.current?.querySelectorAll("[data-anim]");
+    const els = ref.current?.querySelectorAll<HTMLElement>("[data-anim]");
     els?.forEach((el, i) => {
       setTimeout(() => {
-        (el as HTMLElement).style.opacity = "1";
-        (el as HTMLElement).style.transform = "translateY(0)";
-      }, 150 + i * 160);
+        el.style.opacity = "1";
+        el.style.transform = "translateY(0)";
+      }, 200 + i * 150);
     });
   }, []);
 
   return (
     <section
       ref={ref}
-      className="relative min-h-screen flex items-center overflow-hidden"
-      style={{ background: "#FEFCF8" }}
+      style={{ background: "#FEFCF8", minHeight: "100svh", position: "relative", overflow: "hidden" }}
     >
-      {/* Left: Text Content */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-8 md:px-12 grid md:grid-cols-2 gap-0 items-center min-h-screen">
-        
-        {/* Text Side */}
-        <div className="flex flex-col justify-center py-32 md:py-0 pr-0 md:pr-16">
+      {/* ── Mobile layout: stacked ── */}
+      <div style={{
+        maxWidth: "1280px",
+        margin: "0 auto",
+        padding: "0 1.25rem",
+        minHeight: "100svh",
+        display: "grid",
+        gridTemplateColumns: "1fr",
+        gridTemplateRows: "1fr auto",
+      }}>
+
+        {/* Text block */}
+        <div style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          paddingTop: "100px",
+          paddingBottom: "2rem",
+        }}>
 
           {/* Eyebrow */}
           <div
             data-anim
-            className="flex items-center gap-3 mb-8"
-            style={{ opacity: 0, transform: "translateY(20px)", transition: "all 0.7s cubic-bezier(0.16,1,0.3,1)" }}
+            style={{
+              display: "flex", alignItems: "center", gap: "12px",
+              marginBottom: "1.5rem",
+              opacity: 0, transform: "translateY(20px)",
+              transition: "all 0.7s cubic-bezier(0.16,1,0.3,1)",
+            }}
           >
-            <span className="block w-8 h-px bg-[#B8946A]" />
-            <span
-              className="text-[11px] tracking-[4px] uppercase font-medium"
-              style={{ color: "#B8946A", fontFamily: "'DM Sans', sans-serif" }}
-            >
-              Port Harcourt · Est. with Love
+            <span style={{ display: "block", width: "28px", height: "1px", background: "#B8946A" }} />
+            <span style={{
+              fontFamily: "'DM Sans', sans-serif",
+              fontSize: "10px",
+              letterSpacing: "4px",
+              textTransform: "uppercase",
+              color: "#B8946A",
+              fontWeight: 500,
+            }}>
+              Port Harcourt · Made with Love
             </span>
           </div>
 
-          {/* Main heading */}
+          {/* Heading */}
           <h1
             data-anim
             style={{
-              fontFamily: "'Cormorant Garamond', 'Playfair Display', serif",
-              color: "#2C1810",
-              opacity: 0,
-              transform: "translateY(24px)",
-              transition: "all 0.8s cubic-bezier(0.16,1,0.3,1)",
-              fontSize: "clamp(3.5rem, 7vw, 6rem)",
-              lineHeight: 1.05,
+              fontFamily: "'Cormorant Garamond', serif",
               fontWeight: 300,
-              letterSpacing: "-0.5px",
+              fontSize: "clamp(2.6rem, 10vw, 5.5rem)",
+              lineHeight: 1.05,
+              color: "#2C1810",
+              opacity: 0, transform: "translateY(24px)",
+              transition: "all 0.8s cubic-bezier(0.16,1,0.3,1)",
+              letterSpacing: "-0.3px",
             }}
           >
             Cakes Baked<br />
-            <em style={{ fontStyle: "italic", fontWeight: 400 }}>with Heart,</em><br />
+            <em style={{ fontStyle: "italic" }}>with Heart,</em><br />
             Served with Love
           </h1>
 
-          {/* Divider */}
+          {/* Rule */}
           <div
             data-anim
-            className="my-8"
-            style={{ opacity: 0, transform: "translateY(16px)", transition: "all 0.7s cubic-bezier(0.16,1,0.3,1)" }}
-          >
-            <span className="block w-16 h-px bg-[#D4B896]" />
-          </div>
+            style={{
+              width: "48px", height: "1px", background: "#D4B896",
+              margin: "1.5rem 0",
+              opacity: 0, transform: "translateY(12px)",
+              transition: "all 0.6s cubic-bezier(0.16,1,0.3,1)",
+            }}
+          />
 
           {/* Description */}
           <p
             data-anim
-            className="text-base leading-relaxed max-w-md"
             style={{
-              color: "#7A5C4E",
               fontFamily: "'DM Sans', sans-serif",
-              opacity: 0,
-              transform: "translateY(16px)",
-              transition: "all 0.7s cubic-bezier(0.16,1,0.3,1)",
               fontWeight: 300,
+              fontSize: "clamp(0.875rem, 3vw, 1rem)",
+              lineHeight: 1.75,
+              color: "#7A5C4E",
+              maxWidth: "400px",
+              opacity: 0, transform: "translateY(12px)",
+              transition: "all 0.7s cubic-bezier(0.16,1,0.3,1)",
             }}
           >
-            Handcrafted celebration cakes, pastries &amp; snacks — each one made 
-            to order, each one telling a unique story. Based in Queens Park Estate, 
-            Port Harcourt. Open 24 hours.
+            Handcrafted celebration cakes, pastries &amp; snacks — made to order,
+            each one telling a unique story. Queens Park Estate, Port Harcourt. Open 24 hours.
           </p>
 
           {/* CTAs */}
           <div
             data-anim
-            className="flex flex-wrap gap-4 mt-10"
-            style={{ opacity: 0, transform: "translateY(16px)", transition: "all 0.7s cubic-bezier(0.16,1,0.3,1)" }}
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              gap: "12px",
+              marginTop: "2rem",
+              opacity: 0, transform: "translateY(12px)",
+              transition: "all 0.7s cubic-bezier(0.16,1,0.3,1)",
+            }}
           >
             <a
               href="#menu"
-              className="px-8 py-3.5 text-[12px] tracking-widest uppercase font-semibold transition-all duration-300"
               style={{
                 fontFamily: "'DM Sans', sans-serif",
+                fontSize: "11px",
+                letterSpacing: "3px",
+                textTransform: "uppercase",
+                fontWeight: 600,
                 background: "#2C1810",
                 color: "#FEFCF8",
+                padding: "14px 28px",
+                textDecoration: "none",
+                transition: "background 0.3s",
+                display: "inline-block",
               }}
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLElement).style.background = "#B8946A";
-              }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLElement).style.background = "#2C1810";
-              }}
+              onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "#B8946A"}
+              onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = "#2C1810"}
             >
               View Menu
             </a>
             <a
               href="tel:+2348167853002"
-              className="px-8 py-3.5 text-[12px] tracking-widest uppercase font-semibold border transition-all duration-300"
               style={{
                 fontFamily: "'DM Sans', sans-serif",
+                fontSize: "11px",
+                letterSpacing: "3px",
+                textTransform: "uppercase",
+                fontWeight: 600,
+                background: "transparent",
                 color: "#2C1810",
-                borderColor: "#2C1810",
+                border: "1px solid #2C1810",
+                padding: "14px 28px",
+                textDecoration: "none",
+                transition: "all 0.3s",
+                display: "inline-block",
               }}
-              onMouseEnter={(e) => {
+              onMouseEnter={e => {
                 (e.currentTarget as HTMLElement).style.background = "#2C1810";
                 (e.currentTarget as HTMLElement).style.color = "#FEFCF8";
               }}
-              onMouseLeave={(e) => {
+              onMouseLeave={e => {
                 (e.currentTarget as HTMLElement).style.background = "transparent";
                 (e.currentTarget as HTMLElement).style.color = "#2C1810";
               }}
@@ -132,112 +171,110 @@ export default function Hero() {
             </a>
           </div>
 
-          {/* Stats row */}
+          {/* Stats */}
           <div
             data-anim
-            className="flex gap-10 mt-14 pt-10 border-t border-[#E8DDD0]"
-            style={{ opacity: 0, transform: "translateY(16px)", transition: "all 0.7s cubic-bezier(0.16,1,0.3,1)" }}
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              gap: "2rem",
+              marginTop: "2.5rem",
+              paddingTop: "2rem",
+              borderTop: "1px solid #E8DDD0",
+              opacity: 0, transform: "translateY(12px)",
+              transition: "all 0.7s cubic-bezier(0.16,1,0.3,1)",
+            }}
           >
             {[
               { value: "5.0★", label: "Google Rating" },
-              { value: "24h", label: "Always Open" },
+              { value: "24h",  label: "Always Open" },
               { value: "100%", label: "Made Fresh" },
             ].map(({ value, label }) => (
               <div key={label}>
-                <p
-                  className="text-2xl font-light"
-                  style={{ fontFamily: "'Cormorant Garamond', serif", color: "#2C1810" }}
-                >
+                <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.6rem", fontWeight: 300, color: "#2C1810", lineHeight: 1 }}>
                   {value}
                 </p>
-                <p
-                  className="text-[10px] tracking-[3px] uppercase mt-0.5"
-                  style={{ color: "#B8946A", fontFamily: "'DM Sans', sans-serif" }}
-                >
+                <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "9px", letterSpacing: "3px", textTransform: "uppercase", color: "#B8946A", marginTop: "4px" }}>
                   {label}
                 </p>
               </div>
             ))}
           </div>
         </div>
+      </div>
 
-        {/* Image Side */}
-        <div
-          data-anim
-          className="hidden md:block relative h-screen"
-          style={{ opacity: 0, transform: "translateY(20px)", transition: "all 1s cubic-bezier(0.16,1,0.3,1)" }}
-        >
-          {/* Main large image */}
-          <div className="absolute inset-0 top-16 bottom-16">
-            <img
-              src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=800&q=85&fit=crop"
-              alt="Beautiful celebration cake"
-              className="w-full h-full object-cover"
-              style={{ filter: "brightness(0.97) saturate(1.05)" }}
-            />
-          </div>
+      {/* Hero image — desktop right side, mobile subtle bg */}
+      <div style={{
+        position: "absolute",
+        top: 0, right: 0, bottom: 0,
+        width: "45%",
+        zIndex: 0,
+      }} className="hero-img-panel">
+        <style>{`
+          .hero-img-panel { display: none; }
+          @media (min-width: 768px) { .hero-img-panel { display: block; } }
+          .hero-text-side { position: relative; z-index: 1; }
+        `}</style>
+        <img
+          src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=900&q=85&fit=crop"
+          alt="Beautiful celebration cake"
+          style={{ width: "100%", height: "100%", objectFit: "cover" }}
+        />
+        <div style={{
+          position: "absolute", inset: 0,
+          background: "linear-gradient(to right, #FEFCF8 0%, transparent 20%)",
+        }} />
 
-          {/* Floating badge */}
-          <div
-            className="absolute bottom-24 -left-8 z-10 px-6 py-4 shadow-xl"
-            style={{ background: "#FEFCF8", border: "1px solid #E8DDD0" }}
-          >
-            <p
-              className="text-[10px] tracking-[3px] uppercase mb-1"
-              style={{ color: "#B8946A", fontFamily: "'DM Sans', sans-serif" }}
-            >
-              Custom Orders
-            </p>
-            <p
-              className="text-base font-light"
-              style={{ fontFamily: "'Cormorant Garamond', serif", color: "#2C1810" }}
-            >
-              Every cake tells your story
-            </p>
-          </div>
-
-          {/* Subtle overlay texture */}
-          <div
-            className="absolute inset-0 top-16 bottom-16 pointer-events-none"
-            style={{ background: "linear-gradient(to bottom, transparent 60%, rgba(254,252,248,0.3) 100%)" }}
-          />
+        {/* Floating card */}
+        <div style={{
+          position: "absolute",
+          bottom: "80px",
+          left: "-32px",
+          background: "#FEFCF8",
+          border: "1px solid #E8DDD0",
+          padding: "20px 24px",
+          boxShadow: "0 8px 40px rgba(44,24,16,0.12)",
+        }}>
+          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "9px", letterSpacing: "3px", textTransform: "uppercase", color: "#B8946A", marginBottom: "4px" }}>
+            Custom Orders
+          </p>
+          <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.1rem", fontWeight: 300, color: "#2C1810" }}>
+            Every cake tells your story
+          </p>
         </div>
       </div>
 
-      {/* Mobile hero image */}
-      <div
-        className="md:hidden absolute inset-0 z-0"
-        style={{ background: "linear-gradient(to bottom, rgba(254,252,248,0.85) 40%, rgba(254,252,248,0.6) 100%)" }}
-      >
+      {/* Mobile bg tint image */}
+      <div className="mobile-hero-bg" style={{ display: "none" }}>
+        <style>{`
+          @media (max-width: 767px) {
+            .mobile-hero-bg { display: block !important; position: absolute; inset: 0; z-index: 0; }
+            .mobile-hero-bg img { width: 100%; height: 100%; object-fit: cover; opacity: 0.08; }
+          }
+        `}</style>
         <img
-          src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=600&q=80&fit=crop"
-          alt="Celebration cake"
-          className="w-full h-full object-cover -z-10 absolute inset-0"
-          style={{ opacity: 0.25 }}
+          src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=600&q=70&fit=crop"
+          alt=""
+          aria-hidden="true"
         />
       </div>
 
       {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-10">
-        <span
-          className="text-[9px] tracking-[4px] uppercase"
-          style={{ color: "#B8946A", fontFamily: "'DM Sans', sans-serif" }}
-        >
+      <div style={{
+        position: "absolute",
+        bottom: "24px",
+        left: "50%",
+        transform: "translateX(-50%)",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        gap: "6px",
+        zIndex: 2,
+      }}>
+        <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "8px", letterSpacing: "4px", textTransform: "uppercase", color: "#B8946A" }}>
           Scroll
         </span>
-        <div
-          className="w-px h-10 bg-[#D4B896]"
-          style={{
-            animation: "scrollLine 1.8s ease-in-out infinite",
-          }}
-        />
-        <style>{`
-          @keyframes scrollLine {
-            0% { transform: scaleY(0); transform-origin: top; opacity: 1; }
-            50% { transform: scaleY(1); transform-origin: top; opacity: 1; }
-            100% { transform: scaleY(1); transform-origin: bottom; opacity: 0; }
-          }
-        `}</style>
+        <div style={{ width: "1px", height: "36px", background: "#D4B896" }} className="anim-scroll-line" />
       </div>
     </section>
   );
